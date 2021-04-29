@@ -36,7 +36,7 @@ const displayChoosen = (furnitures)=>
     {
       // card main div for each item
       let card_wrapper = document.createElement("div");
-      card_wrapper.classList.add("container","col-4");
+      card_wrapper.classList.add("container","col-lg-6",);
       main_block.appendChild(card_wrapper);
 
       // card second div for each item
@@ -88,6 +88,7 @@ const displayChoosen = (furnitures)=>
       let selectElement = document.createElement("select");
       selectElement.id = "mySelect";
       formulaire.appendChild(selectElement);
+      
       furniture.varnish.forEach(eachVarnish => {
           console.log(eachVarnish);
           let optionElement = document.createElement("option")
@@ -95,7 +96,6 @@ const displayChoosen = (furnitures)=>
           optionElement.value += eachVarnish;
           optionElement.innerHTML += eachVarnish;
         });
-
       //creating the button
       let itemButton = document.createElement("a");
       itemButton.classList.add("btn","btn-primary");
