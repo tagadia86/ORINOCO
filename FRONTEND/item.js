@@ -88,21 +88,48 @@ const displayChoosen = (furnitures)=>
       let selectElement = document.createElement("select");
       selectElement.id = "mySelect";
       formulaire.appendChild(selectElement);
-      
+
+      let choosenVarnish;
       furniture.varnish.forEach(eachVarnish => {
-          console.log(eachVarnish);
           let optionElement = document.createElement("option")
           selectElement.appendChild(optionElement);
           optionElement.value += eachVarnish;
           optionElement.innerHTML += eachVarnish;
+          choosenVarnish = optionElement.value;
         });
       //creating the button
       let itemButton = document.createElement("a");
       itemButton.classList.add("btn","btn-primary");
       card_wrapper_child.appendChild(itemButton);
       itemButton.innerHTML += "Ajouter au panier";
-      itemButton.href = "item.html?id="+furniture._id;
+      //itemButton.href = "item.html?id="+furniture._id;
       itemButton.role = "button";
+      //adding an item to the cart
+      itemButton.addEventListener('click', function(clickOnButtonAdd) 
+      {   
+        console.log("bouton cliqué");
+        const newCart = new cart(furniture._id,choosenVarnish);
+        newCart.pushItemToArray(choosenVarnish);
+        console.log(newCart);
+      
+      });
+
+      //adding an item to the basket
+      class cart {
+        constructor(idToAdd, varnishToAdd) 
+        {
+          this.idToAdd = idToAdd;
+          this.varnishToAdd = varnishToAdd;
+          this.cartArray = [];
+          this.averageRating = 0;
+        }        
+
+        pushItemToArray(itemToPush) 
+        {
+          this.cartArray.push(itemToPush);
+        }
+      
+      }
     }
   });
 
