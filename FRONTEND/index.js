@@ -4,7 +4,8 @@ let mainBlock = document.getElementById("main_block");
 const get = (url)=> {
   return new Promise((resolve,reject)=>{
     const request = new XMLHttpRequest();
-    request.onreadystatechange = function(){
+    request.onreadystatechange = function()
+    {
       if (this.readyState == XMLHttpRequest.DONE && this.status == 200) 
       {
         resolve(JSON.parse(this.responseText));
@@ -15,7 +16,8 @@ const get = (url)=> {
   });
 };
 
-get("http://localhost:3000/api/furniture").then((response)=>{
+get("http://localhost:3000/api/furniture").then((response)=>
+{
   console.log(response);
   displayItem(response);
 })
