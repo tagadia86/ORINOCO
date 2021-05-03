@@ -74,7 +74,6 @@ const displayItem = (furnitures)=>
   });
 
 }
-
 //calling the function to display items in the cart
 displayItem(shoppingCart);
 
@@ -90,7 +89,6 @@ const removeChoosen = (shoppingCart,itemToRemove)=>
     {
       console.log("ID de l'index");
       console.log(index._id);
-      
       let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
       if (shoppingCart === null) 
       {

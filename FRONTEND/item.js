@@ -1,11 +1,13 @@
 
-  let urlSearch = new URLSearchParams(window.location.search);
-  //console.log(urlSearch);
-  let selectedCam = urlSearch.get('id');
-  //console.log(selectedCam);
-
-  
+let urlSearch = new URLSearchParams(window.location.search);
+let selectedCam = urlSearch.get('id');
 let mainBlock = document.getElementById("main_block");
+
+let productToAdd = new Object();
+Object.defineProperty(productToAdd, "itemCounter", {value:0});
+let counter = 0;
+let loopCounter = 0;
+
 
 const get = (url)=> 
 {
@@ -24,7 +26,6 @@ const get = (url)=>
 };
 
 get("http://localhost:3000/api/furniture").then((response)=>{
-  //console.log(response);
   displayChoosen(response);
 })
 
@@ -32,6 +33,7 @@ const displayChoosen = (furnitures)=>
 {
   furnitures.forEach(furniture => 
   {
+    loopCounter++;
     if (furniture._id == selectedCam )
     {
       // card main div for each item
@@ -97,50 +99,52 @@ const displayChoosen = (furnitures)=>
           optionElement.innerHTML += eachVarnish;
           choosenVarnish = optionElement.value;
         });
+
       //creating the button
       let itemButton = document.createElement("a");
       itemButton.classList.add("btn","btn-primary");
       card_wrapper_child.appendChild(itemButton);
       itemButton.innerHTML += "Ajouter au panier";
-      //itemButton.href = "item.html?id="+furniture._id;
       itemButton.role = "button";
-      //adding an item to the cart
-      itemButton.addEventListener('click', function(clickOnButtonAdd) 
+      /*end of the part to create the button*/
+
+
+      productToAdd = (furniture);
+
+  
+
+      itemButton.addEventListener('click', function() 
       {   
         console.log("bouton cliqué");
+        console.log(loopCounter);
+        //adding an item to the cart
+        counter++;
+        productToAdd.itemCounter = counter;
         let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
- 
-        const productToAdd = (furniture);
-        //console.log(productToAdd);
         if (shoppingCart === null) 
         {
           shoppingCart = [];
         }
-        shoppingCart.push(productToAdd);
+        if(productToAdd.itemCounter == 1)
+        {
+          shoppingCart.push(productToAdd);
+        }
+        if(productToAdd.itemCounter > 1)
+        {
+          shoppingCart[0].itemCounter = counter;
+        }
+        //console.log(shoppingCart );
         localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
-        console.log(shoppingCart);
-      
       });
-      // //adding an item to the basket
-      // // Constructor
-      // function Item(ID, varnish) 
-      // {
-      //   this.ID = ID;
-      //   this.choosenVarnish = choosenVarnish;
-      // }
-
-      
-
-
-
-
-
-
-
+      // // console.log(counterArray);
+      // // console.log(furniture);
+      /*end of the function to add an item in the cart*/ 
     }
+    /*end of the if to find the item with his ID*/
+    
   });
-
-
+  /*end of the loop foreach */
 
 }
+/*end of the function displayChoosen*/
 
