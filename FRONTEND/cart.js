@@ -10,7 +10,6 @@ const displayItem = (furnitures)=>
   {
     // card main div for each item
     let card_wrapper = document.createElement("div");
-    //card_wrapper.classList.add("card card_img_size");
     card_wrapper.classList.add("card_img_size","mb-3","card");
     main_block.appendChild(card_wrapper); 
     
@@ -63,45 +62,85 @@ const displayItem = (furnitures)=>
     removeButton.classList.add("btn","btn-primary");
     cardBody.appendChild(removeButton);
     removeButton.innerHTML += "supprimer cet article";
-    //removeButton.href = "item.html?id="+furniture._id;
     removeButton.role = "button";
-
     //calling the function to remove an item on click
     removeButton.addEventListener('click', function() 
     {   
+      let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
       removeChoosen (shoppingCart,furniture._id);
+      localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+      location.reload();
     });
+    /*END: remove button section */
   });
-
+  /*END: loop to display items in the cart */
 }
+
 //calling the function to display items in the cart
 displayItem(shoppingCart);
 
+
+//appending the clear button
+let clearButton = document.createElement("a");
+clearButton.classList.add("btn","btn-primary");
+main_block.appendChild(clearButton);
+clearButton.innerHTML = "supprimer le panier";
+clearButton.role = "button";
+//calling the function to clear the cart on click
+clearButton.addEventListener('click', function() 
+{   
+  let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
+  clearCart (shoppingCart);
+  localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+  location.reload();
+});
+/*END: clear button section */
+
+
 //function to remove item on click
-const removeChoosen = (shoppingCart,itemToRemove)=>
+const removeChoosen = (removingArray,itemToRemove)=>
 {
- console.log("removed function called");
+ //console.log("removed function called");
   let cptRemove = 0;
-  shoppingCart.forEach(index => 
+  removingArray.forEach(index => 
   {
-    console.log("I'm in the loop to find the item to remove");
+    //console.log("I'm in the loop to find the item to remove");
     if (index._id == itemToRemove )
     {
-      console.log("ID de l'index");
+      //console.log("ID de l'index");
       console.log(index._id);
-      let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
-      if (shoppingCart === null) 
+      //let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
+      if (removingArray === null) 
       {
-          shoppingCart = [];
+          removingArray = [];
       }
-      shoppingCart.splice(cptRemove, 1); 
-      localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
-      location.reload();
+      //removingArray.splice(cptRemove, 1); 
+      removingArray.pop(); 
+      //localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+      //location.reload();
     }
     cptRemove++;
+    console.log(cptRemove);
+    setTimeout(() => {  console.log("PAUSE"); }, 200000);
   });
 }
 /*end of the function to remove item on click*/
+
+//function to clear the cart
+const clearCart = (cartToClear)=>{
+  while (cartToClear.length > 0)
+  {
+    //let cartToClear = JSON.parse(localStorage.getItem("shoppingCart"));
+    if (cartToClear === null) 
+    {
+        cartToClear = [];
+    }
+    cartToClear.pop();
+    //localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+    location.reload();
+  }
+}
+/*END: function to clear the cart */
 
 
 
