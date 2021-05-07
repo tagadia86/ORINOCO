@@ -3,16 +3,15 @@ let urlSearch = new URLSearchParams(window.location.search);
 let selectedCam = urlSearch.get('id');
 let mainBlock = document.getElementById("main_block");
 
-let productToAdd = new Object();
 
-//A REVOIR 
+//let productToAdd = new Object();
+//Object.defineProperty(productToAdd, "itemCounter", {value:0});
 
-Object.defineProperty(productToAdd, "itemCounter", {value:0});
-console.log("product to add =");
-let counter =0;
-counter++;
-productToAdd.itemCounter = counter;
-console.log(productToAdd.itemCounter);
+//console.log("product to add =");
+//let counter = 0;
+//counter++;
+//productToAdd.itemCounter = counter;
+//console.log(productToAdd.itemCounter);
 
 
 const get = (url)=> 
@@ -39,7 +38,7 @@ const displayChoosen = (furnitures)=>
 {
   furnitures.forEach(furniture => 
   {
-    //loopCounter++;
+
     if (furniture._id == selectedCam )
     {
       // card main div for each item
@@ -114,74 +113,79 @@ const displayChoosen = (furnitures)=>
       itemButton.role = "button";
       /*end of the part to create the button*/
 
-      productToAdd = (furniture);
-      //adding a new property to product to add
+      let productToAdd = new itemDuplicate(furniture._id,furniture.name,furniture.price,furniture.description,furniture.imageUrl,1);
+      //productToAdd = (furniture);
       
 
-
-  
-
+      
       itemButton.addEventListener('click', function() 
       {   
         let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
         let i = 0;
         let cpt = 0;
-        let nombre = 0;
-        //the cart does not exist
         if (shoppingCart === null) 
         {
           shoppingCart = [];
         }
-        //the cart exists 
         else
         {
-          //the cart exist but is empty
           if(shoppingCart.length < 1)
           {
             shoppingCart.push(productToAdd);
+            //shoppingCart[0].count = 1;
           }
-          //there is at least one item in the cart
           else
           {
             while(i < shoppingCart.length)
             {
               if(productToAdd._id == shoppingCart[i]._id)
               {
+                shoppingCart[i].count +=1;
                 cpt++;
               }
               i++;
-              console.log("compteur=");
-              console.log(cpt);
+              //end of while loop
             }
-            if(cpt == 1 )
+            if(cpt == 0 )
              {
-              productToAdd.itemCounter++;
-              //console.log(nombre);
+              console.log("LE PRODUIT N'Y EST PAS ENCORE")
+              //productToAdd.count +=1;
+              shoppingCart.push(productToAdd);
+              //shoppingCart[i-1].count +=1;
              }
              else
              {
-              shoppingCart.push(productToAdd);
-             }
-            
-          }
-          //localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
-        }
 
+              
+             }
+          }
+          //shoppingCart[i].count ++;
+        }
+        console.log("i = ");
+        console.log(i);
+        console.log("shoppingcart = ");
+        console.log(shoppingCart);
         localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
       });
       /*end of the function to add an item in the cart*/ 
     }
     /*end of the if to find the item with his ID*/
-    
   });
   /*end of the loop foreach */
 }
 /*end of the function displayChoosen*/
 
+//creating an object 
+// Constructor
 
-
-
-
-
-
-
+  class itemDuplicate{
+  constructor(_id,name,price,description,imageUrl,count) 
+  {
+    this._id = _id;
+    this.name = name;
+    this.price = price;
+    this.description = description;
+    this.imageUrl = imageUrl;
+    this.count = count;
+  }
+}

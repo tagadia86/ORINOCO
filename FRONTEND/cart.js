@@ -114,8 +114,8 @@ const removeChoosen = (removingArray,itemToRemove)=>
       {
           removingArray = [];
       }
-      //removingArray.splice(cptRemove, 1); 
-      removingArray.pop(); 
+      removingArray.splice(cptRemove, 1); 
+      //removingArray.pop(); 
       //localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
       //location.reload();
     }
