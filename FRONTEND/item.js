@@ -3,17 +3,6 @@ let urlSearch = new URLSearchParams(window.location.search);
 let selectedCam = urlSearch.get('id');
 let mainBlock = document.getElementById("main_block");
 
-
-//let productToAdd = new Object();
-//Object.defineProperty(productToAdd, "itemCounter", {value:0});
-
-//console.log("product to add =");
-//let counter = 0;
-//counter++;
-//productToAdd.itemCounter = counter;
-//console.log(productToAdd.itemCounter);
-
-
 const get = (url)=> 
 {
   return new Promise((resolve,reject)=>
@@ -113,7 +102,7 @@ const displayChoosen = (furnitures)=>
       itemButton.role = "button";
       /*end of the part to create the button*/
 
-      let productToAdd = new itemDuplicate(furniture._id,furniture.name,furniture.price,furniture.description,furniture.imageUrl,1);
+      //let productToAdd = new itemDuplicate(furniture._id,furniture.name,furniture.price,furniture.description,furniture.imageUrl,1);
       //productToAdd = (furniture);
       
 
@@ -121,51 +110,37 @@ const displayChoosen = (furnitures)=>
       itemButton.addEventListener('click', function() 
       {   
         let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
-        let i = 0;
-        let cpt = 0;
-        if (shoppingCart === null) 
+        let matched = false;
+   
+        if(JSON.parse(localStorage.getItem("shoppingCart")))
         {
-          shoppingCart = [];
+            shoppingCart.forEach(element =>  {
+             if (element.id == furniture._id ) {
+                matched = true;
+                element.quantity++;
+             }            
+            });
+             if (matched == false) {
+               shoppingCart.push({
+                 id : furniture._id,
+                 quantity : 1
+               });
+              }
+          localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+          console.log("shoppingCart = ",shoppingCart);
         }
         else
         {
-          if(shoppingCart.length < 1)
-          {
-            shoppingCart.push(productToAdd);
-            //shoppingCart[0].count = 1;
-          }
-          else
-          {
-            while(i < shoppingCart.length)
-            {
-              if(productToAdd._id == shoppingCart[i]._id)
-              {
-                shoppingCart[i].count +=1;
-                cpt++;
-              }
-              i++;
-              //end of while loop
-            }
-            if(cpt == 0 )
-             {
-              console.log("LE PRODUIT N'Y EST PAS ENCORE")
-              //productToAdd.count +=1;
-              shoppingCart.push(productToAdd);
-              //shoppingCart[i-1].count +=1;
-             }
-             else
-             {
-
-              
-             }
-          }
-          //shoppingCart[i].count ++;
+          shoppingCart = [];    
+          shoppingCart.push({
+            id : furniture._id,
+            quantity : 1
+          });
+          localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+          console.log("shoppingCart = ",shoppingCart);
         }
-        console.log("i = ");
-        console.log(i);
-        console.log("shoppingcart = ");
-        console.log(shoppingCart);
-        localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+        
+         //localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
       });
       /*end of the function to add an item in the cart*/ 
     }
@@ -178,7 +153,7 @@ const displayChoosen = (furnitures)=>
 //creating an object 
 // Constructor
 
-  class itemDuplicate{
+/*  class itemDuplicate{
   constructor(_id,name,price,description,imageUrl,count) 
   {
     this._id = _id;
@@ -188,4 +163,55 @@ const displayChoosen = (furnitures)=>
     this.imageUrl = imageUrl;
     this.count = count;
   }
-}
+}*/
+
+
+
+
+
+
+
+
+/*************POUBELLE*************/
+
+/*itemButton.addEventListener('click', function() 
+{   
+  /*let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
+  let i = 0;
+  let cpt = 0;
+  if (shoppingCart === null) 
+  {
+    shoppingCart = [];
+  }
+  else
+  {
+    if(shoppingCart.length < 1)
+    {
+      shoppingCart.push(productToAdd);
+      //shoppingCart[0].count = 1;
+    }
+    else
+    {
+      while(i < shoppingCart.length)
+      {
+        if(productToAdd._id == shoppingCart[i]._id)
+        {
+          shoppingCart[i].count +=1;
+          cpt++;
+        }
+        i++;
+        //end of while loop
+      }
+      if(cpt == 0 )
+       {
+        console.log("LE PRODUIT N'Y EST PAS ENCORE")
+        //productToAdd.count +=1;
+        shoppingCart.push(productToAdd);
+        //shoppingCart[i-1].count +=1;
+       }
+    }
+    //shoppingCart[i].count ++;
+  }*/
+  /*localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+});*/
+/*end of the function to add an item in the cart*/ 
