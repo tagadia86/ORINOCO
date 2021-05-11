@@ -2,6 +2,7 @@
 let mainBlock = document.getElementById("main_block");
 let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
 let totalPrice = 0;
+let responsePrice = JSON.parse(localStorage.getItem("responsePrice"));
 
 const get = (url)=> {
   return new Promise((resolve,reject)=>{
@@ -20,8 +21,9 @@ const get = (url)=> {
 
 get("http://localhost:3000/api/furniture").then((response)=>
 {
-  console.log(response);
+  //console.log(response);
   displayShoppingcart(response,shoppingCart);
+  localStorage.setItem("responsePrice", JSON.stringify(response));
 })
 
 const displayShoppingcart = (furnitures,shoppingCart)=>
@@ -90,8 +92,6 @@ const displayShoppingcart = (furnitures,shoppingCart)=>
           });
           /*END: remove button section */
 
-
-
           //item quantity
           let itemQuantity = document.createElement("p");
           cardBody.appendChild(itemQuantity);
@@ -102,7 +102,6 @@ const displayShoppingcart = (furnitures,shoppingCart)=>
           cardBody.appendChild(displayPrice);
           displayPrice.classList.add("price");
           displayPrice.innerHTML += "prix = " + (element.quantity *element.price ) + "<br>";
-
 
           //appending the minus button
           let minusButton = document.createElement("a");
@@ -118,30 +117,35 @@ const displayShoppingcart = (furnitures,shoppingCart)=>
             localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
             location.reload();
           });  
+
+          //appending the add button
+          let addButton = document.createElement("a");
+          addButton.classList.add("btn","btn-primary");
+          cardBody.appendChild(addButton);
+          addButton.innerHTML += "ajouter";
+          addButton.role = "button";
+          addButton.addEventListener('click', function() {   
+            element.quantity +=1;
+            localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+            location.reload();
+          });  
+
         }
       });
   });
-
-
 }
 
-//function to build the array to stock all prices
-const stockPrice = (shoppingArray)=>
-{
+//function to calculate the price
+const calculateTotal = (furnitures,shoppingCart)=>{
   let total = 0;
-  shoppingArray.forEach(element => 
-  {
-    total+= element.price * element.quantity;
-    
-  });
-  return total;
+  shoppingCart.forEach(element => {
+    furnitures.forEach(furniture => {
+        if (element.id == furniture._id)
+              total+= furniture.price * element.quantity;
+      });
+  });return total;
 }
-/*end of the function to remove item on click*/
-
-//calculate the price
-totalPrice = stockPrice(shoppingCart);
-console.log(totalPrice);
-
+totalPrice = calculateTotal(responsePrice,shoppingCart);
 
   //card main div for each item
   let price_wrapper = document.createElement("div");
@@ -198,7 +202,4 @@ const clearCart = (cartToClear)=>{
     location.reload();
   }
 }
-
-/*END: function to clear the cart */
-
 
