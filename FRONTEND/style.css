@@ -11,4 +11,8 @@
   height: 100%;
   /*object-fit: cover;*/
 }
-
+.div-navbar
+{
+  display: flex;
+  justify-content: space-between;
+}
