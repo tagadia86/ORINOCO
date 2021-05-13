@@ -42,10 +42,44 @@
 
 
  
-    <main class="container" id="main_block">
+    <main class="container" >
+      <div id="main_block">
+      
+      </div>
 
 
-    </main>
+
+        <!--FORM-->
+        <form>
+          <div class="form-row">
+            <div class="col">
+              <label for="firstName">Prénom</label>
+              <input type="text" class="form-control" id="firstName" placeholder="First name">
+            </div>
+            <div class="col">
+              <label for="lastName">Nom</label>
+              <input type="text" class="form-control" id="lastName" placeholder="Last name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Adresse</label>
+            <input type="text" class="form-control" id="inputAddress1" placeholder="1234 Main St">
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputCity">Ville</label>
+              <input type="text" class="form-control" id="inputCity">
+            </div>
+  
+            <div class="form-group col-md-6 ">
+              <label for="inputEmail">Email</label>
+              <input type="email" class="form-control" id="inputEmail" placeholder="Email" pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" >
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="submitButton">Soumettre</button>
+      </form>
+      </main>
     
    <script type="text/javascript" src="cart.js"></script>
     

@@ -28,122 +28,134 @@ get("http://localhost:3000/api/furniture").then((response)=>
 
 const displayShoppingcart = (furnitures,shoppingCart)=>
 {
-  shoppingCart.forEach(element => 
-  {
-    furnitures.forEach(furniture => 
+  if (shoppingCart) {
+    shoppingCart.forEach(element => 
       {
-        if (element.id == furniture._id) 
-        {
-          // card main div for each item
-          let card_wrapper = document.createElement("div");
-          //card_wrapper.classList.add("card card_img_size");
-          card_wrapper.classList.add("card_img_size","mb-3","card");
-          main_block.appendChild(card_wrapper); 
-          // card second div for each item
-          let card_wrapper_child = document.createElement("div");
-          card_wrapper_child.classList.add("row","g-0");
-          card_wrapper.appendChild(card_wrapper_child);
-          // creating image wrapper
-          let image_wrapper = document.createElement("div"); 
-          image_wrapper.classList.add("col-md-6");
-          card_wrapper_child.appendChild(image_wrapper);
-          //image_wrapper.innerHTML += furniture.name + "<br>";
-          // creating description wrapper
-          let description_wrapper = document.createElement("div"); 
-          description_wrapper.classList.add("col-6");
-          card_wrapper_child.appendChild(description_wrapper);
-          //image_wrapper.innerHTML += furniture.name + "<br>";
-          //appending the card image
-          let imageCamera = document.createElement("img");
-          imageCamera.classList.add("img_size");
-          image_wrapper.appendChild(imageCamera);
-          imageCamera.src = furniture.imageUrl; 
-          //appending the card image
-          let cardBody = document.createElement("div");
-          cardBody.classList.add("card-body");
-          description_wrapper.appendChild(cardBody);
-      
-          let itemName = document.createElement("p");
-          cardBody.appendChild(itemName);
-          itemName.innerHTML += furniture.name;
-      
-          let itemPrice = document.createElement("p");
-          cardBody.appendChild(itemPrice);
-          itemPrice.innerHTML += furniture.price;
-      
-          let itemID = document.createElement("p");
-          cardBody.appendChild(itemID);
-          itemID.innerHTML += furniture._id;
-      
-          let itemDescription = document.createElement("p");
-          cardBody.appendChild(itemDescription);
-          itemDescription.innerHTML += furniture.description + "<br>";
-          //appending the remove button
-          let removeButton = document.createElement("a");
-          removeButton.classList.add("btn","btn-primary");
-          cardBody.appendChild(removeButton);
-          removeButton.innerHTML += "supprimer cet article";
-          removeButton.role = "button";
-          //calling the function to remove an item on click
-          removeButton.addEventListener('click', function() {   
-          removeChoosen (shoppingCart,furniture._id);
-          localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
-          location.reload();
-          });
-          /*END: remove button section */
-
-          //item quantity
-          let itemQuantity = document.createElement("p");
-          cardBody.appendChild(itemQuantity);
-          itemQuantity.classList.add("quantity");
-          itemQuantity.innerHTML += "quantité = " + element.quantity + "<br>";
-          //appending the price
-          let displayPrice = document.createElement("p");
-          cardBody.appendChild(displayPrice);
-          displayPrice.classList.add("price");
-          displayPrice.innerHTML += "prix = " + (element.quantity *element.price ) + "<br>";
-
-          //appending the minus button
-          let minusButton = document.createElement("a");
-          minusButton.classList.add("btn","btn-primary");
-          cardBody.appendChild(minusButton);
-          minusButton.innerHTML += "diminuer";
-          minusButton.role = "button";
-          minusButton.addEventListener('click', function() {   
-            element.quantity -=1;
-            if (element.quantity == 0){
+        furnitures.forEach(furniture => 
+          {
+            if (element.id == furniture._id) 
+            {
+              // card main div for each item
+              let card_wrapper = document.createElement("div");
+              //card_wrapper.classList.add("card card_img_size");
+              card_wrapper.classList.add("card_img_size","mb-3","card");
+              main_block.appendChild(card_wrapper); 
+              // card second div for each item
+              let card_wrapper_child = document.createElement("div");
+              card_wrapper_child.classList.add("row","g-0");
+              card_wrapper.appendChild(card_wrapper_child);
+              // creating image wrapper
+              let image_wrapper = document.createElement("div"); 
+              image_wrapper.classList.add("col-md-6");
+              card_wrapper_child.appendChild(image_wrapper);
+              //image_wrapper.innerHTML += furniture.name + "<br>";
+              // creating description wrapper
+              let description_wrapper = document.createElement("div"); 
+              description_wrapper.classList.add("col-6");
+              card_wrapper_child.appendChild(description_wrapper);
+              //image_wrapper.innerHTML += furniture.name + "<br>";
+              //appending the card image
+              let imageCamera = document.createElement("img");
+              imageCamera.classList.add("img_size");
+              image_wrapper.appendChild(imageCamera);
+              imageCamera.src = furniture.imageUrl; 
+              //appending the card image
+              let cardBody = document.createElement("div");
+              cardBody.classList.add("card-body");
+              description_wrapper.appendChild(cardBody);
+          
+              let itemName = document.createElement("p");
+              cardBody.appendChild(itemName);
+              itemName.innerHTML += furniture.name;
+          
+              let itemPrice = document.createElement("p");
+              cardBody.appendChild(itemPrice);
+              itemPrice.innerHTML += furniture.price;
+          
+              let itemID = document.createElement("p");
+              cardBody.appendChild(itemID);
+              itemID.innerHTML += furniture._id;
+          
+              let itemDescription = document.createElement("p");
+              cardBody.appendChild(itemDescription);
+              itemDescription.innerHTML += furniture.description + "<br>";
+              //appending the remove button
+              let removeButton = document.createElement("a");
+              removeButton.classList.add("btn","btn-primary");
+              cardBody.appendChild(removeButton);
+              removeButton.innerHTML += "supprimer cet article";
+              removeButton.role = "button";
+              //calling the function to remove an item on click
+              removeButton.addEventListener('click', function() {   
               removeChoosen (shoppingCart,furniture._id);
+              localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+              location.reload();
+              });
+              /*END: remove button section */
+    
+              //item quantity
+              let itemQuantity = document.createElement("p");
+              cardBody.appendChild(itemQuantity);
+              itemQuantity.classList.add("quantity");
+              itemQuantity.innerHTML += "quantité = " + element.quantity + "<br>";
+              //appending the price
+              let displayPrice = document.createElement("p");
+              cardBody.appendChild(displayPrice);
+              displayPrice.classList.add("price");
+              displayPrice.innerHTML += "prix = " + (element.quantity *element.price ) + "<br>";
+    
+              //appending the minus button
+              let minusButton = document.createElement("a");
+              minusButton.classList.add("btn","btn-primary");
+              cardBody.appendChild(minusButton);
+              minusButton.innerHTML += "diminuer";
+              minusButton.role = "button";
+              minusButton.addEventListener('click', function() {   
+                element.quantity -=1;
+                if (element.quantity == 0){
+                  removeChoosen (shoppingCart,furniture._id);
+                }
+                localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+                location.reload();
+              });  
+    
+              //appending the add button
+              let addButton = document.createElement("a");
+              addButton.classList.add("btn","btn-primary");
+              cardBody.appendChild(addButton);
+              addButton.innerHTML += "ajouter";
+              addButton.role = "button";
+              addButton.addEventListener('click', function() {   
+                element.quantity +=1;
+                localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+                location.reload();
+              });  
+    
             }
-            localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
-            location.reload();
-          });  
-
-          //appending the add button
-          let addButton = document.createElement("a");
-          addButton.classList.add("btn","btn-primary");
-          cardBody.appendChild(addButton);
-          addButton.innerHTML += "ajouter";
-          addButton.role = "button";
-          addButton.addEventListener('click', function() {   
-            element.quantity +=1;
-            localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
-            location.reload();
-          });  
-
-        }
+          });
       });
-  });
+  }
+
 }
 
 //function to calculate the price
 const calculateTotal = (furnitures,shoppingCart)=>{
   let total = 0;
-  shoppingCart.forEach(element => {
-    furnitures.forEach(furniture => {
-        if (element.id == furniture._id)
-              total+= furniture.price * element.quantity;
-      });
-  });return total;
+  if (shoppingCart && furnitures ) 
+  {
+    shoppingCart.forEach(element => 
+      {
+      furnitures.forEach(furniture => {
+          if (element.id == furniture._id)
+                total+= furniture.price * element.quantity;
+        });
+    });
+  }
+  else
+  {
+    total = 0;
+  }
+  return total;
 }
 totalPrice = calculateTotal(responsePrice,shoppingCart);
 
@@ -203,3 +215,134 @@ const clearCart = (cartToClear)=>{
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+/*************************** SENDING DATA TO SERVER**************************/
+let contact = {};
+let productArray = [];
+
+
+//console.log(dataToSend);
+
+//calling the function to submit the form on click
+  let submitButton = document.getElementById('submitButton');
+  //console.log('submitButton');
+  submitButton.addEventListener('click', function() {   
+  contact = formInputs();
+  
+  productArray = buildArrayToSend(shoppingCart);
+  console.log(contact);
+  localStorage.setItem("contact", JSON.stringify(contact));
+  localStorage.setItem("products", JSON.stringify(productArray));
+
+
+  //let myPromise;
+const myPromise = new Promise((resolve, reject) => 
+{
+fetch("http://localhost:3000/api/furniture/order", 
+{
+method: "POST",
+headers: { 
+'Accept': 'application/json', 
+'Content-Type': 'application/json' 
+},
+body: dataToSend
+});
+});
+//returnPostPromise.then
+
+/*myPromise()
+.then(function(postResponse) 
+{
+console.log(postResponse);
+})
+.catch(function(err) 
+{
+// Do something with error
+console.log("ERROR");
+});*/
+console.log(myPromise);
+localStorage.setItem("myPromise", JSON.stringify(myPromise));
+});
+/*END: submit button section */
+
+function formInputs() 
+{
+  let firstname = document.getElementById('firstName').value;
+  let lastname = document.getElementById('lastName').value;
+  let address = document.getElementById('inputAddress1').value;
+  let city = document.getElementById('inputCity').value;
+  let email = document.getElementById('inputEmail').value;
+  /*if (firstname == "" || lastname == "" || address == "" || city == "" || email == "" || (validRegex(email == false)) ) 
+  {
+    alert("Tous les champs du formulaire doivent être correctement remplis");
+    return false;
+  }
+  else{
+    //setTimeout;
+    return {
+      firstname,
+      lastname,
+      address,
+      city,
+      email
+    };
+  }*/
+  return {
+    firstname,
+    lastname,
+    address,
+    city,
+    email
+  };
+}
+
+
+
+function ValidateEmail(input) 
+{
+
+  var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  if (input.value.match(validRegex)) {
+    alert("Valid email address!");
+    document.form1.text1.focus();
+    return true;
+  } else {
+    alert("Invalid email address!");
+    document.form1.text1.focus();
+    return false;
+  }
+}
+
+function buildArrayToSend(fromThisArray) {
+  let ArrayToSend = [];
+  fromThisArray.forEach(element => {
+    ArrayToSend.push(element.id);
+  });
+  return ArrayToSend;
+}
+
+
+
+//let contact = formInputs();*/
+//let firstname = document.getElementById('firstName').value;
+
+let dataToSend =  JSON.stringify({ contact, productArray }); //mettre les données à envoyer au serveur
+
+
+
+//SET TIME OUT
+/*setTimeout(function() {
+  console.log("I'm here!")
+}, 5000);*/
+console.log(dataToSend);
