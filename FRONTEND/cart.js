@@ -21,7 +21,6 @@ const get = (url)=> {
 
 get("http://localhost:3000/api/furniture").then((response)=>
 {
-  //console.log(response);
   displayShoppingcart(response,shoppingCart);
   localStorage.setItem("responsePrice", JSON.stringify(response));
 })
@@ -37,7 +36,6 @@ const displayShoppingcart = (furnitures,shoppingCart)=>
             {
               // card main div for each item
               let card_wrapper = document.createElement("div");
-              //card_wrapper.classList.add("card card_img_size");
               card_wrapper.classList.add("card_img_size","mb-3","card");
               main_block.appendChild(card_wrapper); 
               // card second div for each item
@@ -48,12 +46,10 @@ const displayShoppingcart = (furnitures,shoppingCart)=>
               let image_wrapper = document.createElement("div"); 
               image_wrapper.classList.add("col-md-6");
               card_wrapper_child.appendChild(image_wrapper);
-              //image_wrapper.innerHTML += furniture.name + "<br>";
               // creating description wrapper
               let description_wrapper = document.createElement("div"); 
               description_wrapper.classList.add("col-6");
               card_wrapper_child.appendChild(description_wrapper);
-              //image_wrapper.innerHTML += furniture.name + "<br>";
               //appending the card image
               let imageCamera = document.createElement("img");
               imageCamera.classList.add("img_size");
@@ -118,7 +114,6 @@ const displayShoppingcart = (furnitures,shoppingCart)=>
                 localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
                 location.reload();
               });  
-    
               //appending the add button
               let addButton = document.createElement("a");
               addButton.classList.add("btn","btn-primary");
@@ -126,18 +121,15 @@ const displayShoppingcart = (furnitures,shoppingCart)=>
               addButton.innerHTML += "ajouter";
               addButton.role = "button";
               addButton.addEventListener('click', function() {   
-                element.quantity +=1;
-                localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
-                location.reload();
-              });  
-    
+              element.quantity +=1;
+              localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+              location.reload();
+              });   
             }
           });
       });
   }
-
 }
-
 //function to calculate the price
 const calculateTotal = (furnitures,shoppingCart)=>{
   let total = 0;
@@ -171,7 +163,6 @@ totalPrice = calculateTotal(responsePrice,shoppingCart);
   price_wrapper.appendChild(totalPriceButton);
   totalPriceButton.innerHTML += "TOTAL = " + (totalPrice ) + "<br>";
   totalPriceButton.role = "button";
-
 
 //function to remove item on click
 const removeChoosen = (removingArray,itemToRemove)=>{
@@ -229,97 +220,57 @@ const clearCart = (cartToClear)=>{
 
 /*************************** SENDING DATA TO SERVER**************************/
 let contact = {};
-let productArray = [];
-
-
-//console.log(dataToSend);
-
 //calling the function to submit the form on click
   let submitButton = document.getElementById('submitButton');
-  //console.log('submitButton');
-  submitButton.addEventListener('click', function() {   
-  contact = formInputs();
-  
-  productArray = buildArrayToSend(shoppingCart);
-  console.log(contact);
-  localStorage.setItem("contact", JSON.stringify(contact));
-  localStorage.setItem("products", JSON.stringify(productArray));
-
-
-  //let myPromise;
-const myPromise = new Promise((resolve, reject) => 
-{
-fetch("http://localhost:3000/api/furniture/order", 
-{
-method: "POST",
-headers: { 
-'Accept': 'application/json', 
-'Content-Type': 'application/json' 
-},
-body: dataToSend
-});
-});
-//returnPostPromise.then
-
-/*myPromise()
-.then(function(postResponse) 
-{
-console.log(postResponse);
-})
-.catch(function(err) 
-{
-// Do something with error
-console.log("ERROR");
-});*/
-console.log(myPromise);
-localStorage.setItem("myPromise", JSON.stringify(myPromise));
+  submitButton.addEventListener('click', function(e) {   
+  e.preventDefault();
+    contact = formInputs();
+  if(contact == false)
+  {
+    alert("ERREUR DE SAISIE");
+  }
+  else
+  {
+    products = buildArrayToSend(shoppingCart);
+    let orderReturn = postForm({ contact, products });
+  }
 });
 /*END: submit button section */
 
 function formInputs() 
 {
-  let firstname = document.getElementById('firstName').value;
-  let lastname = document.getElementById('lastName').value;
+  let firstName = document.getElementById('firstName').value;
+  let lastName = document.getElementById('lastName').value;
   let address = document.getElementById('inputAddress1').value;
   let city = document.getElementById('inputCity').value;
   let email = document.getElementById('inputEmail').value;
-  /*if (firstname == "" || lastname == "" || address == "" || city == "" || email == "" || (validRegex(email == false)) ) 
+  if (firstName == "" || lastName == "" || address == "" || city == "" || email == "") 
   {
     alert("Tous les champs du formulaire doivent être correctement remplis");
     return false;
   }
+  else if ((ValidateEmail(email) == false) ) {
+    alert("Invalid email address!");
+    return false;
+  }
   else{
-    //setTimeout;
     return {
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       address,
       city,
       email
     };
-  }*/
-  return {
-    firstname,
-    lastname,
-    address,
-    city,
-    email
-  };
+    alert("JE DOIS RETOURNER CONTACT");
+  }
 }
-
-
 
 function ValidateEmail(input) 
 {
-
-  var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  if (input.value.match(validRegex)) {
-    alert("Valid email address!");
-    document.form1.text1.focus();
+  let validRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+  if (input.match(validRegex)) {
     return true;
   } else {
-    alert("Invalid email address!");
-    document.form1.text1.focus();
     return false;
   }
 }
@@ -332,17 +283,24 @@ function buildArrayToSend(fromThisArray) {
   return ArrayToSend;
 }
 
+async function postForm(dataToSend) {
+  console.log(dataToSend);
+  try {
 
-
-//let contact = formInputs();*/
-//let firstname = document.getElementById('firstName').value;
-
-let dataToSend =  JSON.stringify({ contact, productArray }); //mettre les données à envoyer au serveur
-
-
-
-//SET TIME OUT
-/*setTimeout(function() {
-  console.log("I'm here!")
-}, 5000);*/
-console.log(dataToSend);
+      let response = await fetch("http://localhost:3000/api/furniture/order", {
+          method: 'POST',
+          headers: {
+              'content-type': 'application/json'
+          },
+          body: JSON.stringify(dataToSend) 
+      });
+      if (response.ok) {
+          let data = await response.json();
+          console.log(data);
+      } else {
+          console.error('Retour du serveur : ', response.status);
+      }
+  } catch (e) {
+      console.log(e);
+  }
+}
