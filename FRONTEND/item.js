@@ -23,7 +23,6 @@ get("http://localhost:3000/api/furniture").then((response)=>{
 const displayChoosen = (furnitures)=>
 {
   furnitures.forEach(furniture => {
-
     if (furniture._id == selectedCam ) {
       // card main div for each item
       let card_wrapper = document.createElement("div");

@@ -296,6 +296,8 @@ async function postForm(dataToSend) {
       });
       if (response.ok) {
           let data = await response.json();
+          window.open("orderID.html?id="+data.orderId+"&param2="+data.contact.firstName);
+          //itemButton.href = "item.html?id="+furniture._id;
           console.log(data);
       } else {
           console.error('Retour du serveur : ', response.status);
