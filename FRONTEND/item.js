@@ -1,8 +1,6 @@
-
 let urlSearch = new URLSearchParams(window.location.search);
 let selectedCam = urlSearch.get('id');
 let mainBlock = document.getElementById("main_block");
-
 const get = (url)=> {
   return new Promise((resolve,reject)=>{
     const request = new XMLHttpRequest();
@@ -15,13 +13,10 @@ const get = (url)=> {
     request.send();
   });
 };
-
 get("http://localhost:3000/api/furniture").then((response)=>{
   displayChoosen(response);
 })
-
-const displayChoosen = (furnitures)=>
-{
+const displayChoosen = (furnitures)=>{
   furnitures.forEach(furniture => {
     if (furniture._id == selectedCam ) {
       // card main div for each item
@@ -50,7 +45,7 @@ const displayChoosen = (furnitures)=>
       let itemPrice = document.createElement("p");
       itemPrice.classList.add("card-text");
       card_wrapper_child.appendChild(itemPrice);
-      itemPrice.innerHTML += furniture.price;
+      itemPrice.innerHTML += furniture.price + "€";
       //appending the card id
       let itemId = document.createElement("p");
       itemId.classList.add("card-text");
@@ -86,7 +81,6 @@ const displayChoosen = (furnitures)=>
       itemButton.innerHTML += "Ajouter au panier";
       itemButton.role = "button";
       /*end of the part to create the button*/
-
       itemButton.addEventListener('click', function() {   
         let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
         let matched = false;
@@ -100,24 +94,21 @@ const displayChoosen = (furnitures)=>
              if (matched == false) {
                shoppingCart.push({
                  id : furniture._id,
-                 price : furniture.price,
+                 //price : furniture.price,
                  quantity : 1
                });
               }
           localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
-          console.log("shoppingCart = ",shoppingCart);
         }
         else{
           shoppingCart = [];    
           shoppingCart.push({
             id : furniture._id,
-            price : furniture.price,
+            //price : furniture.price,
             quantity : 1
           });
           localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
-          console.log("shoppingCart = ",shoppingCart);
         }
-         //localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
       });
       /*end of the function to add an item in the cart*/ 
     }

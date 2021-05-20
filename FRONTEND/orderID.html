@@ -11,8 +11,6 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
-
     <header>
       <div class="bg-dark">
         <div class="container">
@@ -29,9 +27,6 @@
                   <li class="nav-item active">
                     <a class="nav-link" href="index.html">Accueil</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="cart.html">panier</a>
-                  </li>
                 </ul>
               </div>
             </nav>
@@ -39,109 +34,60 @@
         </div>
       </div>
     </header>
-
-
- 
     <main class="container" id="main_block">
+        <div class="container"><strong>Nous vous remercions d'avoir passé votre commande chez Orinoco. </strong></div><br>
         <div class="container">
             <div class="card">
-          <div class="card-header">
-          Invoice
-          <strong>01/01/01/2018</strong> 
-            <span class="float-right"> <strong>Status:</strong> Pending</span>
-          
+                <div class="card-header">
+                    Date : 
+                    <span id="today_date"></span> 
+                    <span class="float-right"> Statut : validée</span>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-sm-6">
+                        <h6 class="mb-3">Émis par:</h6>
+                        <div>
+                        <strong>Orinoco</strong>
+                        </div>
+                        <div>7 rue Lafayette, Paris</div>
+                        <div>Email: contact@orinoco.com</div>
+                        <div>Phone: +33 86 76 89 074</div>
+                        </div>
+                    </div>
+                    <div class="table-responsive-sm">
+                        <table class="table table-striped">
+                            <thead>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="center">1</td>
+                                    <td class="left strong">Numéro de commande</td>
+                                    <td class="left"></td>
+                                    <td class="right"></td>
+                                    <td class="center"></td>
+                                    <td class="left strong" id="order_id"></td>
+                                </tr>
+                                <tr>
+                                    <td class="center">2</td>
+                                    <td class="left">Montant de la commande</td>
+                                    <td class="left"></td>
+                                    <td class="right"></td>
+                                    <td class="center"></td>
+                                    <td class="right" id="total">dol</td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
           </div>
-          <div class="card-body">
-          <div class="row mb-4">
-          <div class="col-sm-6">
-          <h6 class="mb-3">From:</h6>
-          <div>
-          <strong>Webz Poland</strong>
-          </div>
-          <div>Madalinskiego 8</div>
-          <div>71-101 Szczecin, Poland</div>
-          <div>Email: info@webz.com.pl</div>
-          <div>Phone: +48 444 666 3333</div>
-          </div>
-          
-          <div class="col-sm-6">
-          <h6 class="mb-3">To:</h6>
-          <div>
-          <strong>Bob Mart</strong>
-          </div>
-          <div>Attn: Daniel Marek</div>
-          <div>43-190 Mikolow, Poland</div>
-          <div>Email: marek@daniel.com</div>
-          <div>Phone: +48 123 456 789</div>
-          </div>
-          
-          
-          
-          </div>
-          
-          <div class="table-responsive-sm">
-          <table class="table table-striped">
-          <thead>
-          <tr>
-          <th class="center">#</th>
-          <th>Item</th>
-          <th>Description</th>
-          
-          <th class="right">Unit Cost</th>
-            <th class="center">Qty</th>
-          <th class="right">Total</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-          <td class="center">1</td>
-          <td class="left strong">Origin License</td>
-          <td class="left">Extended License</td>
-          
-          <td class="right">$999,00</td>
-            <td class="center">1</td>
-          <td class="right">$999,00</td>
-          </tr>
-          <tr>
-          <td class="center">2</td>
-          <td class="left">Custom Services</td>
-          <td class="left">Instalation and Customization (cost per hour)</td>
-          
-          <td class="right">$150,00</td>
-            <td class="center">20</td>
-          <td class="right">$3.000,00</td>
-          </tr>
-          <tr>
-          <td class="center">3</td>
-          <td class="left">Hosting</td>
-          <td class="left">1 year subcription</td>
-          
-          <td class="right">$499,00</td>
-            <td class="center">1</td>
-          <td class="right">$499,00</td>
-          </tr>
-          <tr>
-          <td class="center">4</td>
-          <td class="left">Platinum Support</td>
-          <td class="left">1 year subcription 24/7</td>
-          
-          <td class="right">$3.999,00</td>
-            <td class="center">1</td>
-          <td class="right">$3.999,00</td>
-          </tr>
-          </tbody>
-          </table>
-          </div>
-          
+        </div> 
     </main>
-    
    <script type="text/javascript" src="orderID.js"></script>
-    
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>  
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
