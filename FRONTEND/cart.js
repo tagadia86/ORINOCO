@@ -29,7 +29,6 @@ totalPriceButton.innerHTML = "TOTAL = " + (0) + "<br>";
 //totalPriceButton.role = "button";
 const displayShoppingcart = (furnitures,shoppingCart)=>
 {
-console.log("FURNITURE IN LOOL",furnitures);
   if (shoppingCart) {
     shoppingCart.forEach(element => 
       {
@@ -67,7 +66,8 @@ console.log("FURNITURE IN LOOL",furnitures);
               itemName.innerHTML += furniture.name;
               let itemPrice = document.createElement("p");
               cardBody.appendChild(itemPrice);
-              itemPrice.innerHTML += furniture.price + "€";
+              //
+              itemPrice.innerHTML += (furniture.price/100) + "€";
               let itemID = document.createElement("p");
               cardBody.appendChild(itemID);
               itemID.innerHTML += furniture._id;
@@ -96,7 +96,7 @@ console.log("FURNITURE IN LOOL",furnitures);
               let displayPrice = document.createElement("p");
               cardBody.appendChild(displayPrice);
               displayPrice.classList.add("price");
-              displayPrice.innerHTML += "prix = " + (element.quantity *furniture.price ) + "<br>";
+              displayPrice.innerHTML += "prix = " + (element.quantity *furniture.price/100 ) + "<br>";
               //appending the minus button
               let minusButton = document.createElement("a");
               minusButton.classList.add("btn","btn-primary");
@@ -111,9 +111,9 @@ console.log("FURNITURE IN LOOL",furnitures);
                 }
                 localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
                 itemQuantity.innerHTML = "quantité = " + element.quantity + "<br>";
-                displayPrice.innerHTML = "prix = " + (element.quantity *furniture.price ) +"€"+ "<br>";
+                displayPrice.innerHTML = "prix = " + (element.quantity *furniture.price/100 ) +"€"+ "<br>";
                 totalPrice = calculateTotal(furnitures,shoppingCart);
-                totalPriceButton.innerHTML = "TOTAL = " + (totalPrice ) +"€"+"<br>";
+                totalPriceButton.innerHTML = "TOTAL = " + (totalPrice/100 ) +"€"+"<br>";
               });  
               //appending the add button
               let addButton = document.createElement("a");
@@ -125,12 +125,12 @@ console.log("FURNITURE IN LOOL",furnitures);
               element.quantity +=1;
               localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
               itemQuantity.innerHTML = "quantité = " + element.quantity + "<br>";
-              displayPrice.innerHTML = "prix = " + (element.quantity *furniture.price ) +"€"+ "<br>";
+              displayPrice.innerHTML = "prix = " + (element.quantity *furniture.price/100 ) +"€"+ "<br>";
               totalPrice = calculateTotal(furnitures,shoppingCart);
-              totalPriceButton.innerHTML = "TOTAL = " + (totalPrice ) + "<br>";
+              totalPriceButton.innerHTML = "TOTAL = " + (totalPrice/100 ) + "<br>";
               });   
               totalPrice = calculateTotal(furnitures,shoppingCart);
-              totalPriceButton.innerHTML = "TOTAL = " + (totalPrice) +"€"+ "<br>";
+              totalPriceButton.innerHTML = "TOTAL = " + (totalPrice/100) +"€"+ "<br>";
             }
           });
       });

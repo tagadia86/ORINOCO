@@ -49,7 +49,7 @@ const displayItem = (furnitures)=>
     itemName.innerHTML += furniture.name;
     let itemPrice = document.createElement("p");
     cardBody.appendChild(itemPrice);
-    itemPrice.innerHTML += furniture.price + "€";
+    itemPrice.innerHTML += (furniture.price/100) + "€";
     let itemID = document.createElement("p");
     cardBody.appendChild(itemID);
     itemID.innerHTML += furniture._id;
