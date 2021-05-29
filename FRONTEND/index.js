@@ -20,7 +20,7 @@ const displayItem = (furnitures)=>
   furnitures.forEach(furniture => {
     // card main div for each item
     let card_wrapper = document.createElement("div");
-    //card_wrapper.classList.add("card card_img_size");
+    //card_wrapper.classList.add("card_img_size","mb-3","card");
     card_wrapper.classList.add("card_img_size","mb-3","card");
     main_block.appendChild(card_wrapper); 
     // card second div for each item
@@ -32,9 +32,13 @@ const displayItem = (furnitures)=>
     image_wrapper.classList.add("col-md-6");
     card_wrapper_child.appendChild(image_wrapper);
      // creating description wrapper
-     let description_wrapper = document.createElement("div"); 
+    let description_wrapper = document.createElement("div"); 
      description_wrapper.classList.add("col-6");
      card_wrapper_child.appendChild(description_wrapper);
+    imager(image_wrapper,description_wrapper,furniture)
+  });
+}
+const imager = (image_wrapper,description_wrapper,furniture) => {
     //appending the card image
     let imageCamera = document.createElement("img");
     imageCamera.classList.add("img_size");
@@ -57,11 +61,10 @@ const displayItem = (furnitures)=>
     cardBody.appendChild(itemDescription);
     itemDescription.innerHTML += furniture.description + "<br>";
     let itemButton = document.createElement("a");
-    itemButton.classList.add("btn","btn-primary");
+    itemButton.classList.add("btn","btn-secondary");
     cardBody.appendChild(itemButton);
     itemButton.innerHTML += "voir l'article";
     itemButton.href = "item.html?id="+furniture._id;
     itemButton.role = "button";
-  });
 }
 

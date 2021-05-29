@@ -23,10 +23,9 @@ let price_wrapper = document.createElement("div");
 price_wrapper.classList.add("mb-12","card");
 main_block.appendChild(price_wrapper); 
 let totalPriceButton = document.createElement("a");
-totalPriceButton.classList.add("btn","btn-primary","totalPrice");
+totalPriceButton.classList.add("btn","btn-secondary","totalPrice","bg-secondary","text-light");
 price_wrapper.appendChild(totalPriceButton);
 totalPriceButton.innerHTML = "TOTAL = " + (0) + "<br>";
-//totalPriceButton.role = "button";
 const displayShoppingcart = (furnitures,shoppingCart)=>
 {
   if (shoppingCart) {
@@ -66,7 +65,6 @@ const displayShoppingcart = (furnitures,shoppingCart)=>
               itemName.innerHTML += furniture.name;
               let itemPrice = document.createElement("p");
               cardBody.appendChild(itemPrice);
-              //
               itemPrice.innerHTML += (furniture.price/100) + "€";
               let itemID = document.createElement("p");
               cardBody.appendChild(itemID);
@@ -76,7 +74,7 @@ const displayShoppingcart = (furnitures,shoppingCart)=>
               itemDescription.innerHTML += furniture.description + "<br>";
               //appending the remove button
               let removeButton = document.createElement("a");
-              removeButton.classList.add("btn","btn-primary");
+              removeButton.classList.add("btn","btn-secondary","text-light");
               cardBody.appendChild(removeButton);
               removeButton.innerHTML += "supprimer cet article";
               removeButton.role = "button";
@@ -99,7 +97,7 @@ const displayShoppingcart = (furnitures,shoppingCart)=>
               displayPrice.innerHTML += "prix = " + (element.quantity *furniture.price/100 ) + "<br>";
               //appending the minus button
               let minusButton = document.createElement("a");
-              minusButton.classList.add("btn","btn-primary");
+              minusButton.classList.add("btn","btn-secondary","text-light","mr-3");
               cardBody.appendChild(minusButton);
               minusButton.innerHTML += "diminuer";
               minusButton.role = "button";
@@ -117,7 +115,7 @@ const displayShoppingcart = (furnitures,shoppingCart)=>
               });  
               //appending the add button
               let addButton = document.createElement("a");
-              addButton.classList.add("btn","btn-primary");
+              addButton.classList.add("btn","btn-secondary","text-light");
               cardBody.appendChild(addButton);
               addButton.innerHTML += "ajouter";
               addButton.role = "button";
@@ -168,7 +166,7 @@ const removeChoosen = (removingArray,itemToRemove)=>{
 /*end of the function to remove item on click*/
 //appending the clear button
 let clearButton = document.createElement("a");
-clearButton.classList.add("btn","btn-primary");
+clearButton.classList.add("btn","btn-secondary","text-light","my-3");
 main_block.appendChild(clearButton);
 clearButton.innerHTML = "vider le panier";
 clearButton.role = "button";
@@ -186,7 +184,6 @@ const clearCart = (cartToClear)=>{
         cartToClear = [];
     }
     cartToClear.pop();
-    //location.reload();
   }
 }
 /*************************** SENDING DATA TO SERVER**************************/
@@ -195,7 +192,6 @@ let contact = {};
   let submitButton = document.getElementById('submitButton');
   submitButton.addEventListener('click', function(e) {   
   e.preventDefault();
- console.log(shoppingCart.length);
   if (shoppingCart.length == 0) {
     alert("Votre panier est vide");
   }
@@ -233,7 +229,6 @@ function formInputs() {
       city,
       email
     };
-    alert("JE DOIS RETOURNER CONTACT");
   }
 }
 function ValidateEmail(input) {
